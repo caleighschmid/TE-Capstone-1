@@ -8,7 +8,7 @@ public class Drink extends VendingItem{
 
     @Override
     public void displayMessage() {
-        System.out.println("Glug Glug, Chug Chug!");
+        System.out.println("\nGlug Glug, Chug Chug!");
     }
 
 }

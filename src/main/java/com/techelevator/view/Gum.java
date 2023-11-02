@@ -8,7 +8,7 @@ public class Gum extends VendingItem{
 
     @Override
     public void displayMessage() {
-        System.out.println("Chew Chew, Pop!");
+        System.out.println("\nChew Chew, Pop!");
     }
 
 }

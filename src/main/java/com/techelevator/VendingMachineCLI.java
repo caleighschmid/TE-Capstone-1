@@ -5,6 +5,10 @@ import com.techelevator.view.VendingMachine;
 import com.techelevator.view.VendingMenu;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class VendingMachineCLI {
@@ -40,7 +44,22 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				vendingMachine.getMachineInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
+				boolean inPurchaseMenu = true;
+				while (inPurchaseMenu) {
+					System.out.printf("%20s %-2.2f", "Current Money Provided: $", vendingMachine.getBalance());
+					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+						vendingMachine.depositMoney();
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+						vendingMachine.getMachineInventory();
+						vendingMachine.makePurchase();
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+						vendingMachine.endTransaction();
+						inPurchaseMenu = false;
+					}
+				}
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				running = false;
 			}
 		}
 	}
@@ -49,5 +68,15 @@ public class VendingMachineCLI {
 		VendingMenu menu = new VendingMenu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
+	}
+	public void logTransaction(String action, double amountBefore, double amountAfter) {
+		try (FileWriter fw = new FileWriter("Log.txt", true)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+			String timestamp = sdf.format(new Date());
+			fw.write(timestamp + " " + action + ": $" + amountBefore + " $" + amountAfter + "\n");
+
+		} catch (IOException e) {
+			System.out.println("Error: Unable to log transaction.");
+		}
 	}
 }

@@ -44,5 +44,4 @@ public abstract class VendingItem {
     //Empty method overridden by subclasses to return "munch munch" or whatever
     public abstract void displayMessage();
 
-
     }

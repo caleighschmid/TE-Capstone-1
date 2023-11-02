@@ -9,7 +9,7 @@ public class Candy extends VendingItem{
 
     @Override
     public void displayMessage() {
-        System.out.println("Munch Munch, Mmm Mmm Good!");
+        System.out.println("\nMunch Munch, Mmm Mmm Good!");
     }
 
 }

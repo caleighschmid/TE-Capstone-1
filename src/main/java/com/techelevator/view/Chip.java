@@ -8,7 +8,7 @@ public class Chip extends VendingItem{
 
     @Override
     public void displayMessage() {
-        System.out.println("Crunch Crunch, It's Yummy!");
+        System.out.println("\nCrunch Crunch, It's Yummy!");
     }
 
 }
