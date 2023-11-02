@@ -31,9 +31,16 @@ public abstract class VendingItem {
         return slot;
     }
 
-    //Empty method overridden by subclasses to return "munch munch" or whatever
-    public void displayMessage(){
-
+//  Method to decrement the item's quantity when purchased
+    public void decrementQuantity() {
+        if (inventory > 0) {
+            inventory--;
+        }
     }
 
-}
+    //Method overridden by subclasses to display a message
+    //Empty method overridden by subclasses to return "munch munch" or whatever
+    public abstract void displayMessage();
+
+
+    }
