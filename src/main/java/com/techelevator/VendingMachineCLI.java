@@ -40,7 +40,20 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				vendingMachine.getMachineInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
+				boolean inPurchaseMenu = true;
+				while (inPurchaseMenu) {
+					System.out.printf("%20s %-2.2f", "Current Money Provided: $", vendingMachine.getBalance());
+					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+						vendingMachine.depositMoney();
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+						vendingMachine.getMachineInventory();
+						vendingMachine.makePurchase();
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+						vendingMachine.endTransaction();
+						inPurchaseMenu = false;
+					}
+				}
 			}
 		}
 	}
