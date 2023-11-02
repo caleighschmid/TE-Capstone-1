@@ -81,5 +81,8 @@ public class VendingMachine {
 
 
     }
+    public void purchase() {
+        System.out.println("Current Money Provided: $" + balance);
+    }
 }
 
