@@ -35,6 +35,8 @@ public abstract class VendingItem {
     public void decrementQuantity() {
         if (inventory > 0) {
             inventory--;
+        } else if (inventory == 0) {
+            System.out.println("Sorry, this item is out of stock.");
         }
     }
 

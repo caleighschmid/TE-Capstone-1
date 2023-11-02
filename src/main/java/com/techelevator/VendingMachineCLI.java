@@ -30,6 +30,8 @@ public class VendingMachineCLI {
 	VendingMachine vendingMachine = new VendingMachine();
 
 	public void run() throws FileNotFoundException {
+		vendingMachine.initializeInventory();
+
 		boolean running = true;
 		while (running) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);

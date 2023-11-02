@@ -25,6 +25,7 @@ public class VendingMachine {
     public void initializeInventory() throws FileNotFoundException {
         File inputFile = new File("vendingmachine.csv");
         Scanner sc = new Scanner(inputFile);
+        List<VendingItem> machineSupply = new ArrayList<>();
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -33,23 +34,29 @@ public class VendingMachine {
             String slot = itemData[0];
             String name = itemData[1];
             double price = Double.parseDouble(itemData[2]);
-            int inventory = 5;
+            String category = itemData[3];
 
+            if(category.equals("Chip")) {
+                Chip newChip = new Chip(name, price, slot);
+                machineSupply.add(newChip);
+            } else if (category.equals("Candy")) {
+                Candy newCandy = new Candy(name, price, slot);
+                machineSupply.add(newCandy);
+            } else if (category.equals("Gum")) {
+                Gum newGum = new Gum(name, price, slot);
+                machineSupply.add(newGum);
+            } else if (category.equals("Drink")) {
+                Drink newDrink = new Drink(name, price, slot);
+                machineSupply.add(newDrink);
+            }
         }
+        items = machineSupply;
     }
 
     //Method to return inventory of entire vending machine
-    public void getMachineInventory() {
-        File inputFile = new File("vendingmachine.csv");
-        Scanner sc = new Scanner(inputFile);
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] items = line.split("\\|");
-
-            double price = Double.parseDouble(items[2]);
-
-            System.out.printf("%-4s %-20s %1s %-10.2f \n", items[0], items[1], "$", price);
+    public void getMachineInventory() throws FileNotFoundException {
+        for (VendingItem item : items) {
+            System.out.printf("%-4s %-20s %1s %-4.2f %-10s %-2s \n", item.getSlot(), item.getName(), "$", item.getPrice(), "Available: ", item.getInventory());
         }
     }
 
