@@ -31,9 +31,10 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	VendingMachine vendingMachine = new VendingMachine();
+
 
 	public void run() throws FileNotFoundException {
+		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.initializeInventory();
 
 		boolean running = true;
@@ -46,7 +47,9 @@ public class VendingMachineCLI {
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				boolean inPurchaseMenu = true;
 				while (inPurchaseMenu) {
-					System.out.printf("%20s %-2.2f", "Current Money Provided: $", vendingMachine.getBalance());
+					System.out.println();
+					System.out.printf("%-15s %-2.2f", "Current Money Provided: $", vendingMachine.getBalance());
+					System.out.println();
 					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 						vendingMachine.depositMoney();
@@ -69,14 +72,5 @@ public class VendingMachineCLI {
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
 	}
-	public void logTransaction(String action, double amountBefore, double amountAfter) {
-		try (FileWriter fw = new FileWriter("Log.txt", true)) {
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-			String timestamp = sdf.format(new Date());
-			fw.write(timestamp + " " + action + ": $" + amountBefore + " $" + amountAfter + "\n");
 
-		} catch (IOException e) {
-			System.out.println("Error: Unable to log transaction.");
-		}
-	}
 }
