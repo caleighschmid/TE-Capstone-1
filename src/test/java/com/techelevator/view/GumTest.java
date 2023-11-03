@@ -19,6 +19,6 @@ public class GumTest {
         System.setOut(System.out);
 
         String actualMessage = outputStream.toString().trim();
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage.trim(), actualMessage);
     }
 }

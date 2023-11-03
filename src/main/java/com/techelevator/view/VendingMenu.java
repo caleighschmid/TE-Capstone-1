@@ -44,8 +44,10 @@ public class VendingMenu {
 	private void displayMenuOptions(Object[] options) {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
-			int optionNum = i + 1;
-			out.println(optionNum + ") " + options[i]);
+			if (!options[i].equals("*Sales Report")) {
+				int optionNum = i + 1;
+				out.println(optionNum + ") " + options[i]);
+			}
 		}
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();

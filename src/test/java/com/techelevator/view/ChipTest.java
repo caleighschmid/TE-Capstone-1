@@ -19,7 +19,7 @@ public class ChipTest {
         System.setOut(System.out);
 
         String actualMessage = outputStream.toString().trim();
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage.trim(), actualMessage);
 
     }
 }

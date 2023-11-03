@@ -1,9 +1,6 @@
 package com.techelevator.view;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.text.SimpleDateFormat;
@@ -18,6 +15,11 @@ public class VendingMachine {
     private double balance = 0.0;
     private double sales = 0.0;
 
+    //For testing purposes
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public double getBalance() {
         return balance;
     }
@@ -26,13 +28,6 @@ public class VendingMachine {
         return items;
     }
 
-//    public VendingMachine() {
-//        try {
-//            initializeInventory();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Error: Vending machine inventory file not found.");
-//        }
-//    }
 
     //Method to initialize vending machine inventory from CSV file
     public void initializeInventory() {
@@ -65,19 +60,19 @@ public class VendingMachine {
                     machineSupply.add(newDrink);
                 }
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
         items = machineSupply;
     }
 
     //Method to return inventory of entire vending machine
-    public void getMachineInventory() throws FileNotFoundException {
+    public void getMachineInventory() {
         for (VendingItem item : items) {
             if (item.getInventory() > 0) {
-                System.out.printf("%-4s %-20s %1s %-4.2f %-10s %-2s \n", item.getSlot(), item.getName(), "$", item.getPrice(), "Available: ", item.getInventory());
+                System.out.printf("%-4s %-20s $%.2f %-10s %-2s \n", item.getSlot(), item.getName(), item.getPrice(), "Available: ", item.getInventory());
             } else if (item.getInventory() == 0) {
-                System.out.printf("%-4s %-20s %1s %-4.2f %-10s \n", item.getSlot(), item.getName(), "$", item.getPrice(), "SOLD OUT");
+                System.out.printf("%-4s %-20s $%.2f %-10s \n", item.getSlot(), item.getName(), item.getPrice(), "SOLD OUT");
             }
         }
     }
@@ -109,11 +104,11 @@ public class VendingMachine {
             if (item.getSlot().equals(slot) && item.getInventory() > 0 && balance >= item.getPrice()) {
                 balance = balance - item.getPrice();
                 item.decrementQuantity();
+                item.increaseAmountSold();
                 sales = sales + item.getPrice();
-                System.out.printf("%-19s %-10s %-7s %-1.2f %-1s", "\nYou purchased ", item.getName(), " for $", item.getPrice(), ".");
+                System.out.printf("%-1s %-1s %-1s $%.2f.", "\nYou purchased ", item.getName(), " for", item.getPrice());
                 item.displayMessage();
                 System.out.println();
-                System.out.printf("%22s %-2.2f", "Your new balance is: $", balance);
                 logTransaction(item.getName() + " " + item.getSlot(), item.getPrice(), balance);
             } else if (item.getSlot().equals(slot) && item.getInventory() == 0) {
                 System.out.println("Sorry, " + item.getName() + " is currently out of stock.");
@@ -175,6 +170,31 @@ public class VendingMachine {
 
         } catch (IOException e) {
             System.out.println("Error: Unable to log transaction.");
+        }
+    }
+
+    //Method for generating a sales report of number of items sold
+    // and total gross revenue since app began running
+    public void writeSalesReport() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss_a");
+        String timestamp = sdf.format(new Date());
+        String salesReport = timestamp + "_SalesReport";
+        File salesReportFile = new File(salesReport);
+        try {
+            if (salesReportFile.createNewFile()) {
+                System.out.println("Sales report file created: " + salesReport);
+                try (PrintWriter pw = new PrintWriter(salesReportFile)) {
+                    for (VendingItem item : items) {
+                        pw.println(item.getName() + "|" + item.getAmountSold());
+                    }
+                    pw.println();
+                    pw.printf("%1s %.2f", "**TOTAL SALES** $", sales);
+                }
+            } else {
+                System.out.println("Error");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

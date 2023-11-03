@@ -48,7 +48,7 @@ public class VendingMachineCLI {
 				boolean inPurchaseMenu = true;
 				while (inPurchaseMenu) {
 					System.out.println();
-					System.out.printf("%-15s %-2.2f", "Current Money Provided: $", vendingMachine.getBalance());
+					System.out.printf("%-15s $%.2f", "Current Money Provided: ", vendingMachine.getBalance());
 					System.out.println();
 					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
@@ -61,7 +61,11 @@ public class VendingMachineCLI {
 						inPurchaseMenu = false;
 					}
 				}
+			} else if (choice.equals(MAIN_MENU_SECRET_OPTION)) {
+				//print sales report
+				vendingMachine.writeSalesReport();
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				System.out.println("Thank you for using our vending machine.");
 				running = false;
 			}
 		}
