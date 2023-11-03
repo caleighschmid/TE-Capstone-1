@@ -22,6 +22,10 @@ public class VendingMachine {
         return balance;
     }
 
+    public List<VendingItem> getItems() {
+        return items;
+    }
+
 //    public VendingMachine() {
 //        try {
 //            initializeInventory();
