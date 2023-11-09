@@ -36,9 +36,7 @@ public class VendingMachineCLI {
 		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.initializeInventory();
 
-		System.out.println("*******************************");
-		System.out.println("Welcome to the Vendo-Matic 800!");
-		System.out.println("*******************************");
+		vendingMachine.printWelcomeMessage();
 
 		boolean running = true;
 		while (running) {

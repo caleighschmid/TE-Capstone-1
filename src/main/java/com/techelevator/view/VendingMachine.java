@@ -29,6 +29,12 @@ public class VendingMachine {
     }
 
 
+    public void printWelcomeMessage() {
+        System.out.println("*******************************");
+        System.out.println("Welcome to the Vendo-Matic 800!");
+        System.out.println("*******************************");
+    }
+
     //Method to initialize vending machine inventory from CSV file
     public void initializeInventory() {
         File inputFile = new File("vendingmachine.csv");
