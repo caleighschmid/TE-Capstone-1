@@ -16,6 +16,7 @@ public abstract class VendingItem {
         this.amountSold = 0;
     }
 
+    //For testing purposes
     public void setInventory(int inventory) {
         this.inventory = inventory;
     }
@@ -46,7 +47,7 @@ public abstract class VendingItem {
         amountSold = amountSold + 1;
     }
 
-//  Method to decrement the item's quantity when purchased
+  //Method to decrement the item's quantity when purchased
     public void decrementQuantity() {
         if (inventory > 0) {
             inventory--;
@@ -56,7 +57,7 @@ public abstract class VendingItem {
     }
 
     //Method overridden by subclasses to display a message
-    //Empty method overridden by subclasses to return "munch munch" or whatever
+    //Empty method overridden by subclasses to return "munch munch" etc
     public abstract void displayMessage();
 
     }

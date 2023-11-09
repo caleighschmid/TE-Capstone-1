@@ -125,7 +125,7 @@ public class VendingMachineTest {
 
     @Test
     public void endTransactionReturnsBalanceToZero() {
-        vendingMachine.setBalance(0);
+        vendingMachine.setBalance(10);
         vendingMachine.endTransaction();
         assertEquals(0.0, vendingMachine.getBalance(), 0.001);
     }

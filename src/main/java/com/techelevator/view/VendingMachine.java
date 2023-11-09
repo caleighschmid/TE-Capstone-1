@@ -156,7 +156,7 @@ public class VendingMachine {
         logTransaction("GIVE CHANGE", changeAmount, balance);
     }
 
-    //Method for logging all machine transactions
+    //Method for logging all machine transactions - feed money, make purchase, end transaction
     public void logTransaction(String action, double moneyExchanged, double newBalance) {
         String logFile = "Log.txt";
         File log = new File(logFile);
@@ -188,7 +188,7 @@ public class VendingMachine {
                         pw.println(item.getName() + "|" + item.getAmountSold());
                     }
                     pw.println();
-                    pw.printf("%1s %.2f", "**TOTAL SALES** $", sales);
+                    pw.printf("%1s $%.2f", "**TOTAL SALES**", sales);
                 }
             } else {
                 System.out.println("Error");

@@ -32,16 +32,18 @@ public class VendingMachineCLI {
 	}
 
 
-
-	public void run() throws FileNotFoundException {
+	public void run() {
 		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.initializeInventory();
+
+		System.out.println("*******************************");
+		System.out.println("Welcome to the Vendo-Matic 800!");
+		System.out.println("*******************************");
 
 		boolean running = true;
 		while (running) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
-			// A switch statement could also be used here.  Your choice.
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				vendingMachine.getMachineInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
@@ -62,7 +64,6 @@ public class VendingMachineCLI {
 					}
 				}
 			} else if (choice.equals(MAIN_MENU_SECRET_OPTION)) {
-				//print sales report
 				vendingMachine.writeSalesReport();
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Thank you for using our vending machine.");
@@ -71,7 +72,7 @@ public class VendingMachineCLI {
 		}
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		VendingMenu menu = new VendingMenu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
